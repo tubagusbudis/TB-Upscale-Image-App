@@ -11,12 +11,12 @@
 
 **Upscale Studio** is a personal, full-stack web application designed to run locally. It leverages the power of AI to upscale low-resolution images into stunning high-definition outputs. 
 
-Built with simplicity in mind, it provides an intuitive workflow: **Upload → Upscale → Preview Before/After → Download**. All processing happens on your local backend, utilizing your GPU for lightning-fast enhancement while keeping your data 100% private.
+Built with simplicity in mind, it provides an intuitive workflow: **Upload → Upscale → Preview Before/After → Download**. All processing happens on your local backend, keeping your data 100% private. (Note: Currently running on CPU as the latest GPU architectures are not yet supported for the local models used).
 
 ## 🔥 Key Features
 
 - **Local-First & Private:** Your images never leave your computer. Processing is done completely on your local server.
-- **GPU Accelerated:** Automatically uses NVIDIA/CUDA if available, with a CPU fallback.
+- **CPU Based (For Now):** Currently utilizes CPU for processing, as newer GPU architectures are not yet supported by the local AI tools being used. GPU support is planned for the future.
 - **Up to 8K Resolution:** Target specific resolutions (2K, 4K, 8K) while preserving the original aspect ratio.
 - **Modern UI:** Clean, minimalist, and soft-colored interface designed for ease of use.
 - **Before/After Preview:** Instantly compare the original and upscaled images side-by-side before downloading.
@@ -32,7 +32,7 @@ Built with simplicity in mind, it provides an intuitive workflow: **Upload → U
 ### Prerequisites
 - Node.js (v18+)
 - Python (3.10+)
-- CUDA Toolkit (optional, but highly recommended for NVIDIA GPU acceleration)
+
 
 ### 1. Clone the Repository
 ```bash
@@ -70,5 +70,5 @@ Open your browser and navigate to `http://localhost:5173` (or the port specified
 This project is for personal use and is a showcase of building local-first AI tools.
 
 <div align="center">
-  <p>Made with ❤️ by <a href="https://github.com/tubagusbudis">Tubagus Budi</a></p>
+  <p>Made with ❤️ by <a href="https://github.com/tubagusbudis">Tubagus Budi S</a></p>
 </div>
