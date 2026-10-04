@@ -50,7 +50,7 @@ export default function ImagePreview({
         <h3 className="text-sm font-medium mb-3">{t.selectResolution}</h3>
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
           {[
-            { id: "x2", label: "x2 Fast", icon: Zap },
+            { id: "2k", label: "2K Fast", icon: Zap },
             { id: "4k", label: "4K Ultra", icon: Monitor },
             { id: "8k", label: "8K Max", icon: Maximize },
           ].map((res) => (

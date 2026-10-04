@@ -11,12 +11,13 @@
 
 **Upscale Studio** is a personal, full-stack web application designed to run locally. It leverages the power of AI to upscale low-resolution images into stunning high-definition outputs. 
 
-Built with simplicity in mind, it provides an intuitive workflow: **Upload → Upscale → Preview Before/After → Download**. All processing happens on your local backend, keeping your data 100% private. (Note: Currently running on CPU as the latest GPU architectures are not yet supported for the local models used).
+Built with simplicity in mind, it provides an intuitive workflow: **Upload → Upscale → Preview Before/After → Download**. All processing happens on your local backend, keeping your data 100% private. Supports **GPU acceleration** via CUDA for blazing-fast upscaling on NVIDIA GPUs, with automatic fallback to CPU.
 
 ## 🔥 Key Features
 
 - **Local-First & Private:** Your images never leave your computer. Processing is done completely on your local server.
-- **CPU Based (For Now):** Currently utilizes CPU for processing, as newer GPU architectures are not yet supported by the local AI tools being used. GPU support is planned for the future.
+- **GPU Accelerated:** Leverages NVIDIA CUDA with fp16 for fast inference. Supports RTX 50-series (Blackwell, sm_120) and older architectures.
+- **Auto Fallback:** Automatically falls back to CPU if no compatible GPU is detected.
 - **Up to 8K Resolution:** Target specific resolutions (2K, 4K, 8K) while preserving the original aspect ratio.
 - **Modern UI:** Clean, minimalist, and soft-colored interface designed for ease of use.
 - **Before/After Preview:** Instantly compare the original and upscaled images side-by-side before downloading.
@@ -24,14 +25,15 @@ Built with simplicity in mind, it provides an intuitive workflow: **Upload → U
 ## ⚙️ Tech Stack
 
 - **Frontend:** React, TypeScript, Vite, TailwindCSS (or Vanilla CSS)
-- **Backend:** Python, FastAPI / Flask (with PyTorch or ONNX for model inference)
-- **AI Models:** Integrates with local upscaling models (e.g., Real-ESRGAN).
+- **Backend:** Python, FastAPI, Uvicorn (with PyTorch + CUDA for model inference)
+- **AI Models:** Real-ESRGAN (x2 & x4) via `realesrgan` + `basicsr`
 
 ## 🚀 Getting Started
 
 ### Prerequisites
 - Node.js (v18+)
 - Python (3.10+)
+- **For GPU:** NVIDIA GPU with CUDA support. RTX 50-series requires PyTorch with CUDA 12.8+.
 
 
 ### 1. Clone the Repository
@@ -50,9 +52,24 @@ python -m venv venv
 # Mac/Linux
 source venv/bin/activate
 
+# Install PyTorch with CUDA 12.8 (required for RTX 50-series / Blackwell)
+pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu128
+
+# Install remaining dependencies
 pip install -r requirements.txt
+
 python main.py
 ```
+
+> **Note:** If you have an older GPU (RTX 20/30/40 series), you can also use
+> `cu124` or `cu121` wheels. Only RTX 50-series (sm_120) requires `cu128`.
+
+#### Environment Variables (optional)
+| Variable | Default | Description |
+|---|---|---|
+| `UPSCALE_TILE` | `400` | Tile size for inference. Lower = less VRAM usage. Set `0` to disable tiling. |
+| `UPSCALE_TILE_PAD` | `10` | Tile padding pixels |
+| `GPU_SEMAPHORE_LIMIT` | `1` | Max concurrent GPU inference jobs |
 
 ### 3. Setup the Frontend
 ```bash
