@@ -1,0 +1,10 @@
+torch
+torchvision
+torchaudio
+basicsr
+facexlib
+gfpgan
+realesrgan
+Pillow
+numpy
+opencv-python
